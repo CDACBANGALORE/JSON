@@ -31,11 +31,11 @@ const user = {
   bio: function () {
     console.log(
       "Hello, I'm ",
-      user.name[0].firstname,
+      this.name[0].firstname,
       " and I'm ",
-      user.name[1].firstname,
+      this.name[1].firstname,
       " and we are both ",
-      user.age,
+      this.age,
       " years old"
     );
   },
@@ -69,3 +69,13 @@ user.farewell = function() {
 }
 
 console.log(user.department);
+user.farewell();
+
+
+// we can also create key and value as a pair using the bracket method
+const keyName = "height";
+const value = "5.6";
+
+// create a new properties
+user[keyName] = value;
+console.log(user.height);
