@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Our superheroes</title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Faster+One"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header></header>
+
+    <section></section>
+
+    <script>
+      async function populate() {
+        // store the request URL in a variable where the json code is available
+        const requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+
+        // create a new Request object using the requestURL
+        const request = new Request(requestURL);
+
+        // we make the network request using the fetch() function, and this returns a Response object
+        const response = await fetch(request);
+
+        // we retrieve the response as JSON using the json() function of the Response object and store in a variable
+        const superHeroes = await response.json();
+
+        // calling two functions to display the fetch data
+        populateHeaders(superHeroes);
+        populateSection(superHeroes);
+      }
+
+      function populateHeaders(obj) {
+        const header = document.querySelector("header");
+        const myH1 = document.createElement("h1");
+        myH1.textContent = obj.squadName;
+        header.appendChild(myH1);
+
+        const para = document.createElement('p');
+        para.textContent = `Home Town: ${obj.homeTowned} || Formed : ${obj.formed}`;
+        header.appendChild(para);
+      }
+
+      function populateSection(obj) {
+        const section = document.querySelector('section');
+        const heroes = obj.members; // select all the member from the array
+
+        // access all the members one by one
+        for(const hero of heroes) {
+          const myArticle = document.createElement('article');
+          const myH2 = document.createElement('h2');
+          const para1 = document.createElement('p');
+          const para2 = document.createElement('p');
+          const para3 = document.createElement('p');
+          const myList = document.createElement('ul');
+
+          myH2.textContent = hero.name; // assign the hero name
+          para1.textContent = `Secrete Identity: ${hero.secretIdentity}`
+          para2.textContent = `Age: ${hero.age}`;
+          para3.textContent = `All superpowers :`;
+          
+          const superpowers = hero.powers;
+          for(const power of superpowers) {
+            const myLi = document.createElement('li');
+            myLi.textContent = power;
+            myList.appendChild(myLi);
+          }
+          
+          myArticle.appendChild(myH2); // append to the article
+          myArticle.appendChild(para1);
+          myArticle.appendChild(para2);
+          myArticle.appendChild(para3);
+          myArticle.appendChild(myList);
+
+          // append to the section
+          section.appendChild(myArticle);
+        }
+      }
+
+      populate();
+    </script>
+  </body>
+</html>

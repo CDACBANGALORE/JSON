@@ -8,8 +8,3 @@ const city = {
 console.log(city);
 console.log(city.toString());
 console.log(Object.getPrototypeOf(city));
-
-false = true;
-while (false) {
-    console.log("Happy weekend");
-}
